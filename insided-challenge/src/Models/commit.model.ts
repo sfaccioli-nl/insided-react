@@ -21,7 +21,7 @@ export interface IOctokitResponse {
 export interface ICommit {
   author?: string;
   message: string;
-  timeStamp?: string;
+  timeStamp?: Date;
 }
 
 export interface ICommitOctokit {

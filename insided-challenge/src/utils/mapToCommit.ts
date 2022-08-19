@@ -6,7 +6,7 @@ export function MapToCommitCard(commits: Array<IOctokitCommits> | null): Array<I
   return commits ? commits.map(element => ({
     author: element.commit.author?.name,
     message: element.commit.message,
-    timeStamp: element.commit.author?.date
+    timeStamp: new Date(element.commit.author?.date ?? '')
   }))
     : null
 }

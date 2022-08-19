@@ -3,6 +3,8 @@ import { Octokit } from "@octokit/core";
 import { MapToCommitCard } from '../../utils/mapToCommit';
 import { ICommit, IOctokitResponse } from '../../Models/commit.model';
 import { useCredentials } from '../../Hooks/useCredentials';
+import Card from '../Card/Card';
+import styles from './Commits.module.scss';
 
 
 export default function Commits(): JSX.Element {
@@ -31,14 +33,10 @@ export default function Commits(): JSX.Element {
   }, [])
 
   return (
-    <div>
-      <ul>
-        {commits?.map((commit, index) => (
-          <li key={`${index} - cm`}>
-            {`Name: ${commit.author} - Date: ${commit.timeStamp} - Comment: ${commit.message}`}
-          </li>
-        ))}
-      </ul>
+    <div className={styles.container}>
+      {commits?.map((commit, index) => (
+        <Card key={`${index}-card`} commit={commit} />
+      ))}
     </div>
   )
 }
