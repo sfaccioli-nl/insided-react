@@ -9,6 +9,8 @@ import styles from './Commits.module.scss';
 
 export default function Commits(): JSX.Element {
   const [commits, setCommits] = useState<Array<ICommit> | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [seconds, setSeconds] = useState<number>(30);
   const { token } = useCredentials();
   const octokit = new Octokit({ auth: token });
 
@@ -23,20 +25,65 @@ export default function Commits(): JSX.Element {
 
 
   useEffect(() => {
-    const commits = getCommits()
+    setLoading(true);
+    getCommits()
       .then(response => {
-        setCommits(MapToCommitCard(response.data))
+        setCommits(MapToCommitCard(response.data));
+        setLoading(false);
       })
-      .catch(error => console.log(error)
+      .catch(error => {
+        console.log(error);
+        setLoading(false);
+      }
       );
 
   }, [])
 
+  useEffect(() => {
+    let myInterval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      } else {
+        setLoading(true);
+        getCommits()
+          .then(response => {
+            setCommits(MapToCommitCard(response.data));
+            setLoading(false);
+          })
+          .catch(error => {
+            console.log(error);
+            setLoading(false);
+          }
+          );
+        setSeconds(30);
+      }
+    }, 1000)
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
+
+
   return (
     <div className={styles.container}>
-      {commits?.map((commit, index) => (
-        <Card key={`${index}-card`} commit={commit} />
-      ))}
+      <div>
+        {`After ${seconds} seconds, the commits will be retrieve again`}
+      </div>
+
+      {loading ?
+        <>
+          <div className={styles.skeleton}></div>
+          <div className={styles.skeleton}></div>
+          <div className={styles.skeleton}></div>
+          <div className={styles.skeleton}></div>
+          <div className={styles.skeleton}></div>
+        </>
+        :
+        commits?.map((commit, index) => (
+          <Card key={`${index}-card`} commit={commit} />
+        ))
+      }
+
     </div>
   )
 }

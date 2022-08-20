@@ -11,26 +11,19 @@ export default function Keys(): JSX.Element {
   }
 
   function handleSubmit(e: FormEvent) {
-    e.preventDefault()
+    e.preventDefault();
     setToken(privateKey);
   }
 
 
   return (
-    <div className={styles.container}>
-      <div className={styles.keysContainer}>
-        <form onSubmit={handleSubmit}>
+    <div className={styles.keysContainer}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label htmlFor="private-key">Private Key</label>
+        <input id="private-key" value={privateKey} onChange={handleChange} type="text" />
 
-          <label htmlFor="inp" className={styles.inp}>
-            <input value={privateKey} onChange={handleChange} type="text" id="inp" placeholder="&nbsp;" />
-            <span className={styles.label}>Private Key</span>
-            <span className={styles.focusBg}></span>
-          </label>
-
-          <button type='submit'>Search commits</button>
-        </form>
-      </div>
-
+        <button type='submit' className={styles.btn}>Search commits</button>
+      </form>
     </div>
   )
 }
