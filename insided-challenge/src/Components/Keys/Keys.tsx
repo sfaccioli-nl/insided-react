@@ -30,9 +30,9 @@ export default function Keys(): JSX.Element {
     <div className={styles.keysContainer}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor="private-key">Private Key</label>
-        <input id="private-key" value={privateKey} onChange={handleChange} type="text" />
+        <input id="private-key" value={privateKey} onChange={handleChange} type="text" data-testid="private-key" />
 
-        <button type='submit' className={styles.btn}>Search commits</button>
+        <button type='submit' data-testid="submit-button" className={styles.btn}>Search commits</button>
       </form>
     </div>
   )
