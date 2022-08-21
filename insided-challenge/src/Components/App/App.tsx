@@ -1,4 +1,5 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import { useCredentials } from '../../Hooks/useCredentials';
 import Commits from '../Commits/Commits';
 import Keys from '../Keys/Keys';
@@ -9,7 +10,8 @@ function App() {
 
   return (
     <div className="App">
-      {token ? <Commits /> : <Keys />}
+      {<Keys />}
+      <Outlet />
     </div>
   );
 }

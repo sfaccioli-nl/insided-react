@@ -1,10 +1,13 @@
 import styles from './Keys.module.scss';
 import { useCredentials } from '../../Hooks/useCredentials';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Keys(): JSX.Element {
-  const { setToken } = useCredentials();
-  const [privateKey, setPrivateKey] = useState('');
+  const [privateKey, setPrivateKey] = useState<string>('');
+  const [navigation, setNavigation] = useState<boolean>(false);
+  const { token, setToken } = useCredentials();
+  const navigate = useNavigate();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setPrivateKey(e.target.value);
@@ -13,7 +16,14 @@ export default function Keys(): JSX.Element {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setToken(privateKey);
+    setNavigation(true);
   }
+
+  useEffect(() => {
+    if (navigation && token) {
+      navigate("/commits");
+    }
+  }, [navigation])
 
 
   return (
