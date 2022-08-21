@@ -13,14 +13,10 @@ interface INavigateLink {
 }
 
 export default function ErrorPage(props: IErrorPageProps): JSX.Element {
-
   return (
     <div>
       <h1 className={props.useErrorColor ? styles.error : ''}>{props.text}</h1>
-      {props.navigateLink && (
-        <Link to={props.navigateLink.to} >{props.navigateLink.text}</Link>
-      )}
-
+      {props.navigateLink && <Link to={props.navigateLink.to}>{props.navigateLink.text}</Link>}
     </div>
-  )
+  );
 }

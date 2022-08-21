@@ -21,10 +21,9 @@ export default function Keys(): JSX.Element {
 
   useEffect(() => {
     if (navigation && token) {
-      navigate("/commits");
+      navigate('/commits');
     }
-  }, [navigation])
-
+  }, [navigation]);
 
   return (
     <div className={styles.keysContainer}>
@@ -32,8 +31,10 @@ export default function Keys(): JSX.Element {
         <label htmlFor="private-key">Private Key</label>
         <input id="private-key" value={privateKey} onChange={handleChange} type="text" data-testid="private-key" />
 
-        <button type='submit' data-testid="submit-button" className={styles.btn}>Search commits</button>
+        <button type="submit" data-testid="submit-button" className={styles.btn}>
+          Search commits
+        </button>
       </form>
     </div>
-  )
+  );
 }

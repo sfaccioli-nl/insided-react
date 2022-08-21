@@ -17,25 +17,20 @@ beforeEach(() => {
       </Routes>
     </BrowserRouter>
   );
-
-})
-
+});
 
 test('Renders the private key input', () => {
-
   expect(screen.getByLabelText('Private Key')).toBeInTheDocument();
   expect(screen.getByRole('textbox', { name: 'Private Key' })).toBeInTheDocument();
-
 });
 
 test('Renders the search commits button', () => {
   const buttonEl = screen.queryByTestId('submit-button') as HTMLButtonElement;
 
   expect(buttonEl).toBeInTheDocument();
-
 });
 
-test("Test search commits button toggle", () => {
+test('Test search commits button toggle', () => {
   const inputEl = screen.queryByTestId('private-key') as HTMLInputElement;
   fireEvent.change(inputEl, { target: { value: process.env.PRIVATE_KEY } });
 
@@ -43,5 +38,4 @@ test("Test search commits button toggle", () => {
   fireEvent.click(buttonEl);
 
   expect(mockedNavigate).toHaveBeenCalledWith('/commits');
-
 });

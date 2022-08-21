@@ -4,39 +4,38 @@
   align-items: center;
   margin-top: 50px;
 
-  .skeleton {
-    width: 700px;
-    height: 100px;
-    background-color: #DDDBDD;
-    border-radius: 10px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    margin: 20px;
+  p {
+    display: contents;
+  }
+
+  .countDown {
     position: relative;
-    display: inline-block;
-    overflow: hidden;
 
-    &::after {
+    .btn {
+      padding: 10px;
+      border-radius: 4px;
+      display: inline-block;
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-image: linear-gradient(90deg,
-          rgba(#fff, 0) 0,
-          rgba(#fff, 0.2) 20%,
-          rgba(#fff, 0.5) 60%,
-          rgba(#fff, 0));
-      animation: shimmer 2s infinite;
-      transform: translateX(-100%);
-      content: '';
-    }
+      bottom: 0%;
+      background-color: #344955;
+      color: #ffffff;
+      text-decoration: none;
+      border: none;
+      margin-top: 20px;
+      margin-left: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: background-color ease 250ms, transform ease 250ms;
+      cursor: pointer;
 
-    @keyframes shimmer {
-      100% {
-        transform: translateX(100%);
+      &:not(:disabled) {
+        &:focus,
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
-
-
   }
 }

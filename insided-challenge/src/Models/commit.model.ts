@@ -17,7 +17,6 @@ export interface IOctokitResponse {
   headers: any;
 }
 
-
 export interface ICommit {
   author?: string;
   message: string;
@@ -37,7 +36,7 @@ export interface ICommitOctokit {
 export interface IOctokitPerson {
   name?: string;
   email?: string;
-  date?: string
+  date?: string;
 }
 
 interface IOctokitPersonExtended {
@@ -69,7 +68,6 @@ interface IParents {
   url: string;
   html_url?: string;
 }
-
 
 interface ITree {
   url: string;

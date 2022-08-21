@@ -6,10 +6,9 @@
   min-width: 300px;
   height: auto;
   padding: 20px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
 
   input,
   select,
@@ -24,16 +23,15 @@
     border: 2px solid rgba(52, 73, 85, 0.05);
 
     &:focus {
-      border: 1px solid #F9AA33;
+      border: 1px solid #f9aa33;
       outline: none;
     }
   }
 
-
   .btn {
     display: inline-block;
     background-color: #344955;
-    color: #FFFFFF;
+    color: #ffffff;
     text-decoration: none;
     border: none;
     margin-top: 20px;
@@ -45,7 +43,6 @@
     cursor: pointer;
 
     &:not(:disabled) {
-
       &:focus,
       &:hover {
         transform: scale(1.05);
@@ -59,13 +56,11 @@
     }
   }
 
-
   .form {
     display: flex;
     flex-direction: column;
     width: 100%;
     margin-top: 20px;
-
 
     label,
     input {
@@ -80,7 +75,7 @@
       width: 100%;
     }
 
-    [type="submit"] {
+    [type='submit'] {
       min-width: 150px;
       margin: 15px auto 0;
     }
@@ -92,6 +87,4 @@
       text-align: center;
     }
   }
-
-
 }
