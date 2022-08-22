@@ -7,6 +7,9 @@ interface IUseCredentials {
 
 const lsKey = 'GH_TOKEN';
 
+/**
+ * Hook to use the token over the app
+ */
 export function useCredentials(): IUseCredentials {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem(lsKey));
 

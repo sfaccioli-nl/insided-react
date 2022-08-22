@@ -12,6 +12,9 @@ interface INavigateLink {
   to: string;
 }
 
+/**
+ * Error page component
+ */
 export default function ErrorPage(props: IErrorPageProps): JSX.Element {
   return (
     <div>

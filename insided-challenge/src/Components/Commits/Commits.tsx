@@ -9,19 +9,14 @@ import Loader from '../Loader/Loader';
 import { getCommitsHelper } from '../../Helper/commits.helper';
 import { routes } from '../Routes/routes';
 
+/**
+ * Component that renders the commits list
+ */
 export default function Commits(): JSX.Element {
   const [commits, setCommits] = useState<Array<ICommit> | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [seconds, setSeconds] = useState<number>(30);
   const { token } = useCredentials();
-
-  const decrementCounter = useCallback(() => {
-    setSeconds(seconds - 1);
-  }, [seconds]);
-
-  const restartCounter = useCallback(() => {
-    setSeconds(30);
-  }, []);
 
   const getCommits = useCallback(() => {
     setLoading(true);
@@ -30,13 +25,13 @@ export default function Commits(): JSX.Element {
       .then(response => {
         setCommits(MapToCommit(response.data));
         setLoading(false);
-        restartCounter();
+        setSeconds(30);
       })
       .catch(error => {
         console.log(error);
         setLoading(false);
       });
-  }, [restartCounter, token]);
+  }, [token]);
 
   useEffect(() => {
     setLoading(true);
@@ -47,10 +42,10 @@ export default function Commits(): JSX.Element {
     if (token) {
       let myInterval = setInterval(() => {
         if (seconds > 0) {
-          decrementCounter();
+          setSeconds(seconds - 1);
         } else {
           getCommits();
-          restartCounter();
+          setSeconds(30);
         }
       }, 1000);
 

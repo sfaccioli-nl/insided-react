@@ -1,6 +1,9 @@
 import { Octokit } from '@octokit/core';
 import { IOctokitResponse } from '../Models/commit.model';
 
+/**
+ * Helper to call the github API
+ */
 export async function getCommitsHelper(token: string | null): Promise<IOctokitResponse> {
   const octokit = new Octokit({ auth: token });
   const owner = 'sfaccioli-nl',

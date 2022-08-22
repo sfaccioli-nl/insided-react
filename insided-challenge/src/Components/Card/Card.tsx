@@ -5,6 +5,9 @@ interface ICardProps {
   commit: ICommit;
 }
 
+/**
+ * Card component to render every commit
+ */
 export default function Card({ commit }: ICardProps): JSX.Element {
   return (
     <div className={styles.container}>
