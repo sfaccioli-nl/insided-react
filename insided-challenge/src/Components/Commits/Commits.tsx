@@ -8,6 +8,7 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 import Loader from '../Loader/Loader';
 import { getCommitsHelper } from '../../Helper/commits.helper';
 import { routes } from '../Routes/routes';
+import { useSearchParams } from 'react-router-dom';
 
 /**
  * Component that renders the commits list
@@ -15,27 +16,50 @@ import { routes } from '../Routes/routes';
 export default function Commits(): JSX.Element {
   const [commits, setCommits] = useState<Array<ICommit> | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const [seconds, setSeconds] = useState<number>(30);
+  const [searchParams] = useSearchParams();
   const { token } = useCredentials();
 
-  const getCommits = useCallback(() => {
-    setLoading(true);
+  let owner = searchParams.get('owner');
+  let repo = searchParams.get('repo');
 
-    getCommitsHelper(token)
-      .then(response => {
-        setCommits(MapToCommit(response.data));
-        setLoading(false);
-        setSeconds(30);
-      })
-      .catch(error => {
-        console.log(error);
-        setLoading(false);
-      });
-  }, [token]);
+  /**
+   * Update the error, loading and commits states when something went wrong
+   */
+  function setErrorStates(): void {
+    setError(true);
+    setLoading(false);
+    setCommits(null);
+  }
+
+  const getCommits = useCallback(() => {
+    if (token) {
+      setLoading(true);
+      getCommitsHelper(token, owner, repo)
+        .then(response => {
+          if (response.status !== 200) {
+            setErrorStates();
+          } else {
+            setCommits(MapToCommit(response.data));
+            setLoading(false);
+            setError(false);
+            setSeconds(30);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          setErrorStates();
+        });
+    } else {
+      setErrorStates();
+    }
+  }, [owner, repo, token]);
 
   useEffect(() => {
-    setLoading(true);
     getCommits();
+
+    return () => setCommits(null);
   }, [getCommits]);
 
   useEffect(() => {
@@ -74,14 +98,17 @@ export default function Commits(): JSX.Element {
           ))}
         </>
       ) : (
-        <ErrorPage
-          text="No commits to display"
-          useErrorColor={false}
-          navigateLink={{
-            text: 'Try introducing another private key or repository',
-            to: routes['home'].path
-          }}
-        />
+        !loading &&
+        error && (
+          <ErrorPage
+            text="No commits to display"
+            useErrorColor={false}
+            navigateLink={{
+              text: 'Try introducing another private key or repository',
+              to: routes['home'].path
+            }}
+          />
+        )
       )}
     </div>
   );

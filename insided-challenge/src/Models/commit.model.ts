@@ -18,9 +18,10 @@ export interface IOctokitResponse {
 }
 
 export interface ICommit {
-  author?: string;
   message: string;
+  author?: string;
   timeStamp?: Date;
+  url?: string;
 }
 
 export interface ICommitOctokit {

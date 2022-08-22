@@ -39,3 +39,14 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .countDown {
+    display: flex;
+    flex-direction: column;
+
+    .btn {
+      position: relative !important;
+    }
+  }
+}
