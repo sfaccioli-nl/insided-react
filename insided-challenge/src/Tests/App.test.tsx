@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from '../Components/App/App';
-import { routes } from '../Components/Routes/routes';
 
 const mockedNavigate = jest.fn();
 
@@ -38,5 +37,5 @@ test('Test search commits button toggle', () => {
   const buttonEl = screen.queryByTestId('submit-button') as HTMLButtonElement;
   fireEvent.click(buttonEl);
 
-  expect(mockedNavigate).toHaveBeenCalledWith(routes['commits'].path);
+  expect(mockedNavigate).toHaveBeenCalledWith({ pathname: '/commits', search: 'owner=&repo=' });
 });
