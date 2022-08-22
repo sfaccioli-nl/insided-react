@@ -1,8 +1,8 @@
-import { Dispatch, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface IUseCredentials {
   token: string | null;
-  setToken: Dispatch<React.SetStateAction<string | null>>;
+  setToken: Dispatch<SetStateAction<string | null>>;
 }
 
 const lsKey = 'GH_TOKEN';

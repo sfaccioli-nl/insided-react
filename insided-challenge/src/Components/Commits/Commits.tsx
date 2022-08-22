@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { MapToCommitCard } from '../../utils/mapToCommit';
+import { MapToCommit } from '../../utils/mapToCommit';
 import { ICommit } from '../../Models/commit.model';
 import { useCredentials } from '../../Hooks/useCredentials';
 import Card from '../Card/Card';
 import styles from './Commits.module.scss';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import Loader from '../Loader/Loader';
-import { getCommitsService } from '../../Services/commits.service';
+import { getCommitsHelper } from '../../Helper/commits.helper';
+import { routes } from '../Routes/routes';
 
 export default function Commits(): JSX.Element {
   const [commits, setCommits] = useState<Array<ICommit> | null>(null);
@@ -20,14 +21,14 @@ export default function Commits(): JSX.Element {
 
   const restartCounter = useCallback(() => {
     setSeconds(30);
-  }, [seconds]);
+  }, []);
 
   const getCommits = useCallback(() => {
     setLoading(true);
 
-    getCommitsService(token)
+    getCommitsHelper(token)
       .then(response => {
-        setCommits(MapToCommitCard(response.data));
+        setCommits(MapToCommit(response.data));
         setLoading(false);
         restartCounter();
       })
@@ -35,12 +36,12 @@ export default function Commits(): JSX.Element {
         console.log(error);
         setLoading(false);
       });
-  }, []);
+  }, [restartCounter, token]);
 
   useEffect(() => {
     setLoading(true);
     getCommits();
-  }, []);
+  }, [getCommits]);
 
   useEffect(() => {
     if (token) {
@@ -83,7 +84,7 @@ export default function Commits(): JSX.Element {
           useErrorColor={false}
           navigateLink={{
             text: 'Try introducing another private key or repository',
-            to: '/'
+            to: routes['home'].path
           }}
         />
       )}

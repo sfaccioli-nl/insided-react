@@ -2,12 +2,15 @@ import styles from './Keys.module.scss';
 import { useCredentials } from '../../Hooks/useCredentials';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { routes } from '../Routes/routes';
 
 export default function Keys(): JSX.Element {
   const [privateKey, setPrivateKey] = useState<string>('');
   const [navigation, setNavigation] = useState<boolean>(false);
   const { token, setToken } = useCredentials();
   const navigate = useNavigate();
+
+  const { path } = routes['commits'];
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setPrivateKey(e.target.value);
@@ -21,9 +24,9 @@ export default function Keys(): JSX.Element {
 
   useEffect(() => {
     if (navigation && token) {
-      navigate('/commits');
+      navigate(path);
     }
-  }, [navigation]);
+  }, [navigation, navigate, path, token]);
 
   return (
     <div className={styles.keysContainer}>

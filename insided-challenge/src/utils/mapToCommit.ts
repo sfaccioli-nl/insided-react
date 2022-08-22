@@ -1,6 +1,6 @@
-import { ICommit, IOctokitCommits, IOctokitResponse } from '../Models/commit.model';
+import { ICommit, IOctokitCommits } from '../Models/commit.model';
 
-export function MapToCommitCard(commits: Array<IOctokitCommits> | null): Array<ICommit> | null {
+export function MapToCommit(commits: Array<IOctokitCommits> | null): Array<ICommit> | null {
   return commits
     ? commits.map(element => ({
         author: element.commit.author?.name,
